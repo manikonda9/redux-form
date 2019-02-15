@@ -5,9 +5,15 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "bootstrap": "4.3.1",
+    "moment": "2.24.0",
     "react": "16.8.0",
     "react-dom": "16.8.0",
-    "react-scripts": "2.0.3"
+    "react-redux": "6.0.0",
+    "react-router-dom": "4.3.1",
+    "react-scripts": "2.0.3",
+    "redux": "4.0.1",
+    "redux-form": "8.1.0"
   },
   "devDependencies": {},
   "scripts": {
