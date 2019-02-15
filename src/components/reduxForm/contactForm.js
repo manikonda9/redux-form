@@ -11,7 +11,7 @@ const contactForm = props => {
           <Field
             name="firstName"
             className="form-control"
-            component="input"
+            component={renderField}
             type="text"
             placeholder="First Name"
           />
@@ -23,7 +23,7 @@ const contactForm = props => {
           <Field
             name="lastName"
             className="form-control"
-            component="input"
+            component={renderField}
             type="text"
             placeholder="Last Name"
           />
@@ -35,7 +35,7 @@ const contactForm = props => {
           <Field
             name="email"
             className="form-control"
-            component="input"
+            component={renderField}
             type="email"
             placeholder="Email"
           />
@@ -44,11 +44,11 @@ const contactForm = props => {
       <div className="form-group row">
         <label className="control-label col-lg-2">Sex :</label>
         <div className="col-lg-4">
-          <label className="col-lg-2">
+          <label className="col-lg-6">
             <Field name="sex" component="input" type="radio" value="male" />{" "}
             Male
           </label>
-          <label className="col-lg-2">
+          <label className="col-lg-6">
             <Field name="sex" component="input" type="radio" value="female" />{" "}
             Female
           </label>
@@ -109,15 +109,51 @@ const contactForm = props => {
   );
 };
 
-const input = ({ input, type, placeholder, id, meta: { touched, error } }) => {
-  return (
-    <div>
-      <input {...input} placeholder={placeholder} type={type} id={id} />
-      {touched && error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
+const validate = values => {
+  const errors = {};
+  if (!values.firstName) {
+    errors.firstName = "First Name is Required";
+  } else if (values.firstName.length > 15) {
+    errors.firstName = "Must be 15 characters or less";
+  }
+  if (!values.lastName) {
+    errors.lastName = "Last Name is Required";
+  } else if (values.lastName.length > 15) {
+    errors.lastName = "Must be 15 characters or less";
+  }
+  if (!values.email) {
+    errors.email = "Email Id is Required";
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = "Invalid email address";
+  }
+  if (!values.sex) {
+    errors.sex = "Please select sex";
+  }
+  return errors;
 };
 
+const renderField = ({
+  input,
+  placeholder,
+  type,
+  meta: { touched, error, warning }
+}) => (
+  <div>
+    <div>
+      <input
+        {...input}
+        className={input.name === "sex" ? "" : "form-control"}
+        placeholder={placeholder}
+        type={type}
+      />
+      {touched &&
+        ((error && <span className="text-danger">{error}</span>) ||
+          (warning && <span className="text-danger">{warning}</span>))}
+    </div>
+  </div>
+);
+
 export default reduxForm({
-  form: "simple" // a unique identifier for this form
+  form: "simple", // a unique identifier for this form
+  validate
 })(contactForm);
