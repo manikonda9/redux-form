@@ -11,7 +11,7 @@ describe('<Routes />',() =>{
     let wrapper;
     beforeEach(() => wrapper = shallow(<Routes />));
     it("All routes at a time",() =>{
-        expect(wrapper.find('Route')).toHaveLength(2);
+        expect(wrapper.find('Route')).toHaveLength(3);
     });
 
     it("looking for specific route",() =>{
