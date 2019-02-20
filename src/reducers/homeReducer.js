@@ -1,6 +1,7 @@
 import { GET, REQUSET, RECEIVE } from "../actions/homeAction";
 const initialState = {
-  data: []
+  data: [],
+  loading: true
 };
 
 const homeReducer = (state = initialState, action) => {
@@ -8,9 +9,9 @@ const homeReducer = (state = initialState, action) => {
     case GET:
       return { ...state, channel: action.channel };
     case REQUSET:
-      return { ...state, loading: true };
+      return { ...state, loading: state.loading };
     case RECEIVE:
-      return { ...state, json: action.json, loading: false };
+      return { ...state, json: action.json, loading: !state.loading };
     default:
       return state;
   }

@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchPosts } from "../actions/homeAction";
+import Spinner from "./spinner/spinner";
+import View from "./view";
 
 class Home extends React.Component {
   constructor(props) {
@@ -8,15 +10,19 @@ class Home extends React.Component {
     this.props.getPosts();
   }
   render() {
-    const data = this.props.data;
-    console.log(data);
-    return <div>Real Data from Json placeholder</div>;
+    const data = this.props.data.json;
+    const loading = this.props.data.loading;
+    if (!loading) {
+      return <View data={data} />;
+    } else {
+      return <Spinner />;
+    }
   }
 }
 
 const mapStateToProps = state => {
   return {
-    data: state.home.json
+    data: state.home
   };
 };
 

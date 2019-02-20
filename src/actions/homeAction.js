@@ -15,12 +15,14 @@ export const receivedData = json => ({
 });
 export const fetchPosts = () => dispatch => {
   dispatch(requestData());
-  fetch("https://jsonplaceholder.typicode.com/todos/1")
+  fetch("https://jsonplaceholder.typicode.com/posts")
     .then(
       response => response.json(),
       error => console.log("An error occurred.", error)
     )
     .then(json => {
-      dispatch(receivedData(json));
+      setTimeout(function() {
+        dispatch(receivedData(json));
+      }, 2000);
     });
 };
