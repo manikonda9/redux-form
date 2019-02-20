@@ -21,7 +21,7 @@ const loginReducer = (state = initialState, action) => {
       //this.props.history.push("/contact")
       return {
         ...state,
-        redirectUrl: "/contact"
+        redirectUrl: "/home"
       };
       //window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
     }
